@@ -1,0 +1,982 @@
+[gd_resource type="Resource" script_class="BTGraphs" load_steps=97 format=3 uid="uid://bhwpkvi5adqtc"]
+
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/b_instance.gd" id="1_fh7ke"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/base/Agent.gd" id="2_6rmpr"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/bg_instance.gd" id="3_vblcg"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/blackboard.gd" id="4_xx6se"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/data/GraphSource.gd" id="5_svncb"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/bt_node.gd" id="6_ur3u5"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/blackboard/check_bb_value.gd" id="7_i5cs0"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/base/BBParameter.gd" id="8_l7rjp"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/arrive.gd" id="9_r1f7e"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/look_where_go.gd" id="10_5cqy2"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/composites/parallel.gd" id="11_6te07"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/leaves/call.gd" id="12_0cpsu"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/composites/sequence.gd" id="13_3q8wa"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/wander_round.gd" id="14_aw2i4"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/decorators/always.gd" id="15_1fsyr"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/seek_damp.gd" id="16_js2fl"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/project/try_slide_attack.gd" id="17_n3kdr"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/decorators/condition.gd" id="17_sf2db"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/around.gd" id="18_o4owa"]
+[ext_resource type="Curve2D" uid="uid://cydt44vt1eswm" path="res://world/res/new_curve_2d.tres" id="19_kaud2"]
+[ext_resource type="Curve2D" uid="uid://c3u82mjdyqlc" path="res://world/res/new_curve_2d2.tres" id="20_15opm"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/nav/nav_patrol.gd" id="21_4f8lg"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/movement/group/queue.gd" id="22_yqxfy"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/btnodes/composites/selector.gd" id="23_2i4ip"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/script/base/task/task.gd" id="25_a046k"]
+[ext_resource type="Script" path="res://addons/BehaviourTree/scenes/Graphs.gd" id="26_ss4f5"]
+
+[sub_resource type="Resource" id="Resource_2o0fa"]
+resource_local_to_scene = true
+resource_name = "Global"
+script = ExtResource("1_fh7ke")
+data = {
+"global_int_key": 89
+}
+
+[sub_resource type="Resource" id="Resource_smxog"]
+script = ExtResource("2_6rmpr")
+
+[sub_resource type="Resource" id="Resource_k5668"]
+resource_local_to_scene = true
+resource_name = "Graph"
+script = ExtResource("1_fh7ke")
+data = {
+"angular_acceleration": 0.0,
+"around_target": null,
+"delta": 0.0166667,
+"enemy": null,
+"extra_linear_acceleration": Vector2(0, 0),
+"linear_acceleration": Vector2(0, 0),
+"target": SubResource("Resource_smxog")
+}
+
+[sub_resource type="Resource" id="Resource_fckba"]
+resource_local_to_scene = true
+script = ExtResource("2_6rmpr")
+
+[sub_resource type="Resource" id="Resource_t3gjb"]
+resource_local_to_scene = true
+script = ExtResource("3_vblcg")
+group_pattern = "drones\\\\d+"
+data = {
+"enemy": null,
+"foothold_agent": null,
+"is_need_formation": true,
+"is_need_go_home": false,
+"shooter": null,
+"target": SubResource("Resource_fckba")
+}
+
+[sub_resource type="Resource" id="Resource_31wuy"]
+resource_local_to_scene = true
+script = ExtResource("4_xx6se")
+blackBoards = {
+"global": SubResource("Resource_2o0fa"),
+"graph": SubResource("Resource_k5668"),
+"group": SubResource("Resource_t3gjb")
+}
+
+[sub_resource type="Resource" id="Resource_n5ar5"]
+resource_local_to_scene = true
+script = ExtResource("1_fh7ke")
+data = {}
+
+[sub_resource type="Resource" id="Resource_kskjn"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 1
+_value = null
+is_use_bb = true
+bb_name = "group"
+bb_key = "is_need_go_home"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_ki6wi"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 1
+_value = true
+is_use_bb = false
+bb_name = ""
+bb_key = ""
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_5cvcf"]
+resource_local_to_scene = true
+script = ExtResource("7_i5cs0")
+valueA = SubResource("Resource_kskjn")
+valueB = SubResource("Resource_ki6wi")
+compareMethod = 0
+is_dynamic = false
+reverse = false
+name = "check_bb_value"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223361328108725602,
+"parent_name": "sequence",
+"position": Vector2(320, 40)
+}
+
+[sub_resource type="Resource" id="Resource_deryl"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "foothold_agent"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_tn8jt"]
+resource_local_to_scene = true
+script = ExtResource("9_r1f7e")
+arrival_tolerance = 1.0
+deceleration_radius = 60.0
+offset = 0.0
+linear_speed_max = 0.0
+_target = SubResource("Resource_deryl")
+name = "arrive"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223361362669786389,
+"parent_name": "parallel",
+"position": Vector2(460, 90)
+}
+
+[sub_resource type="Resource" id="Resource_fivnw"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "foothold_agent"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_lo70b"]
+resource_local_to_scene = true
+script = ExtResource("10_5cqy2")
+angular_speed_max = 1.0472
+_target = SubResource("Resource_fivnw")
+alignment_tolerance = 1
+deceleration_radius = 30
+name = "look_where_go"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223361362669786389,
+"parent_name": "parallel",
+"position": Vector2(460, 140)
+}
+
+[sub_resource type="Resource" id="Resource_r8pgm"]
+resource_local_to_scene = true
+script = ExtResource("11_6te07")
+is_dynamic = true
+policy = 0
+name = "parallel"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_tn8jt"), SubResource("Resource_lo70b")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223361328108725602,
+"parent_name": "sequence",
+"position": Vector2(320, 115)
+}
+
+[sub_resource type="Resource" id="Resource_ncucv"]
+resource_local_to_scene = true
+script = ExtResource("12_0cpsu")
+func_args = []
+func_name = "go_home"
+arg_self = false
+finish_status = "success"
+name = "call"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223361328108725602,
+"parent_name": "sequence",
+"position": Vector2(320, 190)
+}
+
+[sub_resource type="Resource" id="Resource_0reqd"]
+resource_local_to_scene = true
+script = ExtResource("13_3q8wa")
+is_dynamic = true
+name = "sequence"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_5cvcf"), SubResource("Resource_r8pgm"), SubResource("Resource_ncucv")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223361051200774947,
+"parent_name": "selector",
+"position": Vector2(180, 115)
+}
+
+[sub_resource type="Resource" id="Resource_1h0dc"]
+resource_local_to_scene = true
+script = ExtResource("1_fh7ke")
+data = {}
+
+[sub_resource type="Resource" id="Resource_i5pri"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "around_target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_4cn1l"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_hxrxl"]
+resource_local_to_scene = true
+script = ExtResource("14_aw2i4")
+min_angle = 60
+max_angle = 120
+_target = SubResource("Resource_i5pri")
+save = SubResource("Resource_4cn1l")
+name = "wander_round"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883901686085,
+"parent_name": "sequence",
+"position": Vector2(460, 240)
+}
+
+[sub_resource type="Resource" id="Resource_wqosd"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_difua"]
+resource_local_to_scene = true
+script = ExtResource("10_5cqy2")
+angular_speed_max = 1.5708
+_target = SubResource("Resource_wqosd")
+alignment_tolerance = 6
+deceleration_radius = 60
+name = "look_where_go"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883834577217,
+"parent_name": "sequence",
+"position": Vector2(880, 290)
+}
+
+[sub_resource type="Resource" id="Resource_upuq3"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "enemy"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_d72do"]
+resource_local_to_scene = true
+script = ExtResource("10_5cqy2")
+angular_speed_max = 2.0944
+_target = SubResource("Resource_upuq3")
+alignment_tolerance = 4
+deceleration_radius = 30
+name = "look_where_go"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883834577217,
+"parent_name": "sequence",
+"position": Vector2(880, 340)
+}
+
+[sub_resource type="Resource" id="Resource_ryods"]
+resource_local_to_scene = true
+script = ExtResource("13_3q8wa")
+is_dynamic = false
+name = "sequence"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_difua"), SubResource("Resource_d72do")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883851354434,
+"parent_name": "always",
+"position": Vector2(740, 315)
+}
+
+[sub_resource type="Resource" id="Resource_htsaf"]
+resource_local_to_scene = true
+script = ExtResource("15_1fsyr")
+always_what = 1
+name = "always"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_ryods")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883868131651,
+"parent_name": "parallel",
+"position": Vector2(600, 315)
+}
+
+[sub_resource type="Resource" id="Resource_g42m8"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_ueha5"]
+resource_local_to_scene = true
+script = ExtResource("16_js2fl")
+_target = SubResource("Resource_g42m8")
+name = "seek_damp"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223369883868131651,
+"parent_name": "parallel",
+"position": Vector2(600, 390)
+}
+
+[sub_resource type="Resource" id="Resource_soxnn"]
+resource_local_to_scene = true
+script = ExtResource("12_0cpsu")
+func_args = []
+func_name = "shoot"
+arg_self = false
+finish_status = "success"
+name = "call"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883750691132,
+"parent_name": "check_bb_value",
+"position": Vector2(880, 440)
+}
+
+[sub_resource type="Resource" id="Resource_q5r8d"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "enemy"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_u3bmj"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 0
+_value = null
+is_use_bb = false
+bb_name = ""
+bb_key = ""
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_yihfa"]
+resource_local_to_scene = true
+script = ExtResource("7_i5cs0")
+valueA = SubResource("Resource_q5r8d")
+valueB = SubResource("Resource_u3bmj")
+compareMethod = 0
+is_dynamic = false
+reverse = true
+name = "check_bb_value"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_soxnn")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883767468349,
+"parent_name": "always",
+"position": Vector2(740, 440)
+}
+
+[sub_resource type="Resource" id="Resource_3siom"]
+resource_local_to_scene = true
+script = ExtResource("15_1fsyr")
+always_what = 1
+name = "always"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_yihfa")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 4,
+"parent_id": -9223369883868131651,
+"parent_name": "parallel",
+"position": Vector2(600, 440)
+}
+
+[sub_resource type="Resource" id="Resource_f5x4s"]
+resource_local_to_scene = true
+script = ExtResource("11_6te07")
+is_dynamic = true
+policy = 0
+name = "parallel"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_htsaf"), SubResource("Resource_ueha5"), SubResource("Resource_3siom")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883901686085,
+"parent_name": "sequence",
+"position": Vector2(460, 365)
+}
+
+[sub_resource type="Resource" id="Resource_tj5nd"]
+resource_local_to_scene = true
+script = ExtResource("13_3q8wa")
+is_dynamic = false
+name = "sequence"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_hxrxl"), SubResource("Resource_f5x4s")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223348615592720711,
+"parent_name": "try_slide_attack",
+"position": Vector2(320, 340)
+}
+
+[sub_resource type="Resource" id="Resource_wny63"]
+resource_local_to_scene = true
+script = ExtResource("17_n3kdr")
+is_dynamic = false
+reverse = false
+name = "try_slide_attack"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_tj5nd")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223361051200774947,
+"parent_name": "selector",
+"position": Vector2(180, 340)
+}
+
+[sub_resource type="Resource" id="Resource_4m3cv"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "shooter"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_0qapt"]
+resource_local_to_scene = true
+script = ExtResource("18_o4owa")
+angular_speed_max = 0.10472
+linear_speed_max = 0.0
+rotate_ori = 2
+radius = 200
+is_random_radius = false
+random_radius_from = 195
+random_radius_to = 200
+_target = SubResource("Resource_4m3cv")
+name = "around"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883717136698,
+"parent_name": "condition",
+"position": Vector2(320, 490)
+}
+
+[sub_resource type="Resource" id="Resource_l24o0"]
+resource_local_to_scene = true
+script = ExtResource("17_sf2db")
+func_args = []
+func_name = "has_enemy"
+is_dynamic = true
+name = "condition"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_0qapt")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223361051200774947,
+"parent_name": "selector",
+"position": Vector2(190.5, 479.702)
+}
+
+[sub_resource type="Resource" id="Resource_2wg21"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_2h53e"]
+resource_local_to_scene = true
+script = ExtResource("21_4f8lg")
+paths = Array[Curve2D]([ExtResource("19_kaud2"), ExtResource("20_15opm")])
+offest_distance = 40.0
+trans = Transform2D(2, 0, 0, 2, 0, 0)
+_target = SubResource("Resource_2wg21")
+name = "nav_patrol"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883650027830,
+"parent_name": "condition",
+"position": Vector2(600, 540)
+}
+
+[sub_resource type="Resource" id="Resource_oucji"]
+resource_local_to_scene = true
+script = ExtResource("17_sf2db")
+func_args = []
+func_name = "get_is_leader"
+is_dynamic = true
+name = "condition"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_2h53e")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883666805047,
+"parent_name": "always",
+"position": Vector2(460, 540)
+}
+
+[sub_resource type="Resource" id="Resource_3eomc"]
+resource_local_to_scene = true
+script = ExtResource("15_1fsyr")
+always_what = 1
+name = "always"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_oucji")])
+internal_data = {
+"category": "decorator",
+"ci_rid": null,
+"debug": false,
+"order": 1,
+"parent_id": -9223369883683582264,
+"parent_name": "sequence",
+"position": Vector2(320, 540)
+}
+
+[sub_resource type="Resource" id="Resource_0dues"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_yk7ug"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_h1uxw"]
+resource_local_to_scene = true
+script = ExtResource("22_yqxfy")
+formation_type = 1
+leader_as_anchor = false
+match_leader_rotation = true
+_anchor = SubResource("Resource_0dues")
+_target = SubResource("Resource_yk7ug")
+name = "queue"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223369883683582264,
+"parent_name": "sequence",
+"position": Vector2(320, 590)
+}
+
+[sub_resource type="Resource" id="Resource_0cjh2"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_314u0"]
+resource_local_to_scene = true
+script = ExtResource("9_r1f7e")
+arrival_tolerance = 1.0
+deceleration_radius = 100.0
+offset = 0.0
+linear_speed_max = 0.0
+_target = SubResource("Resource_0cjh2")
+name = "arrive"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 2,
+"parent_id": -9223369883599696179,
+"parent_name": "parallel",
+"position": Vector2(460, 640)
+}
+
+[sub_resource type="Resource" id="Resource_qu1kk"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_1h0dc")
+
+[sub_resource type="Resource" id="Resource_0bu55"]
+resource_local_to_scene = true
+script = ExtResource("10_5cqy2")
+angular_speed_max = 1.0472
+_target = SubResource("Resource_qu1kk")
+alignment_tolerance = 1
+deceleration_radius = 30
+name = "look_where_go"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([])
+internal_data = {
+"category": "leaf",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883599696179,
+"parent_name": "parallel",
+"position": Vector2(460, 690)
+}
+
+[sub_resource type="Resource" id="Resource_ffwhe"]
+resource_local_to_scene = true
+script = ExtResource("11_6te07")
+is_dynamic = true
+policy = 0
+name = "parallel"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_314u0"), SubResource("Resource_0bu55")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 3,
+"parent_id": -9223369883683582264,
+"parent_name": "sequence",
+"position": Vector2(320, 665)
+}
+
+[sub_resource type="Resource" id="Resource_rr3cc"]
+resource_local_to_scene = true
+script = ExtResource("13_3q8wa")
+is_dynamic = true
+name = "sequence"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_3eomc"), SubResource("Resource_h1uxw"), SubResource("Resource_ffwhe")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 4,
+"parent_id": -9223361051200774947,
+"parent_name": "selector",
+"position": Vector2(180, 615)
+}
+
+[sub_resource type="Resource" id="Resource_2qv8e"]
+resource_local_to_scene = true
+script = ExtResource("23_2i4ip")
+is_dynamic = true
+name = "selector"
+is_active = true
+childrens = Array[ExtResource("6_ur3u5")]([SubResource("Resource_0reqd"), SubResource("Resource_wny63"), SubResource("Resource_l24o0"), SubResource("Resource_rr3cc")])
+internal_data = {
+"category": "composite",
+"ci_rid": null,
+"debug": false,
+"order": 0,
+"parent_id": 0,
+"parent_name": "",
+"position": Vector2(40, 365)
+}
+
+[sub_resource type="Resource" id="Resource_k7hmn"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_5gyn0"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_nkapj"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_p1xfc"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_2xerp"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_b1rvk"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "enemy"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_m3fvs"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_4lcb2"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "around_target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_a72cu"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_lkvoh"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_e2wks"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "enemy"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_36mb2"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "target"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_omnsr"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "group"
+bb_key = "shooter"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_v4hee"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 24
+is_use_bb = true
+bb_name = "graph"
+bb_key = "enemy"
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_xh8pc"]
+resource_local_to_scene = true
+script = ExtResource("8_l7rjp")
+value_type = 0
+_value = null
+is_use_bb = false
+bb_name = ""
+bb_key = ""
+bb = SubResource("Resource_31wuy")
+local_bb = SubResource("Resource_n5ar5")
+
+[sub_resource type="Resource" id="Resource_xejt4"]
+resource_local_to_scene = true
+script = ExtResource("5_svncb")
+nodes = Array[ExtResource("6_ur3u5")]([SubResource("Resource_2qv8e"), SubResource("Resource_0reqd"), SubResource("Resource_5cvcf"), SubResource("Resource_r8pgm"), SubResource("Resource_tn8jt"), SubResource("Resource_lo70b"), SubResource("Resource_ncucv")])
+tasks = Array[ExtResource("25_a046k")]([])
+parameters = Array[ExtResource("8_l7rjp")]([SubResource("Resource_kskjn"), SubResource("Resource_ki6wi"), SubResource("Resource_deryl"), SubResource("Resource_k7hmn"), SubResource("Resource_5gyn0"), SubResource("Resource_nkapj"), SubResource("Resource_p1xfc"), SubResource("Resource_2xerp"), SubResource("Resource_b1rvk"), SubResource("Resource_m3fvs"), SubResource("Resource_4lcb2"), SubResource("Resource_a72cu"), SubResource("Resource_fivnw"), SubResource("Resource_lkvoh"), SubResource("Resource_e2wks"), SubResource("Resource_36mb2"), SubResource("Resource_omnsr"), SubResource("Resource_v4hee"), SubResource("Resource_xh8pc")])
+lines = []
+local_bb = SubResource("Resource_n5ar5")
+graph_name = "-9223362505483407759"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("26_ss4f5")
+agent_path = NodePath("..")
+blackboard = SubResource("Resource_31wuy")
+graphsources = Array[ExtResource("5_svncb")]([SubResource("Resource_xejt4")])
